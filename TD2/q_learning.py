@@ -25,10 +25,10 @@ if __name__ == "__main__":
     epsilon = 1 
     max_epsilon = 1
     min_epsilon = 0.01
-    epsilon_step = 0.00005 
+    epsilon_step = 0.0009
     n_epochs = 10000 
     test_episode = 100
-    max_itr_per_epoch = 50 
+    max_itr_per_epoch = 100 
     rewards = []
     eL = []
     epL = []
@@ -42,15 +42,21 @@ if __name__ == "__main__":
             Sprime, R, done, _, info = env.step(A)
             r += R
             Q = update_q_table(Q=Q, s=S, a=A, r=R, sprime=Sprime, alpha=alpha, gamma=gamma)
+            S = Sprime
+            if done:
+                break
 
         if e % 100 == 0:
             print(f"Mean reward at episode {e}: {np.mean(rewards[-100:])}")
+        
         print("episode #", e, " : r = ", r," epsilon : ", epsilon)
         eL.append(e)
         rewards.append(r)
         epL.append(epsilon)
-        epsilon = max(0.01, epsilon * np.exp(-epsilon_step * e))
-
+        #epsilon = max(0.01, epsilon * np.exp(-epsilon_step * e))
+        epsilon =min_epsilon+ ((max_epsilon-min_epsilon)*np.exp(-epsilon_step*e))
+        #epsilon = np.sin(np.pi*)
+        
     print("Average reward = ", np.mean(rewards))
 
     plt.plot(eL, rewards)

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 max_epsilon=1
 min_epsilon=0.01
-epsilon_step=0.0003
+epsilon_step=0.0009
 
 def function(e):
     return min_epsilon+ ((max_epsilon-min_epsilon)*np.exp(-epsilon_step*e))
