@@ -54,6 +54,8 @@ if __name__ == "__main__":
         rewards.append(r)
         epL.append(epsilon)
         #epsilon = max(0.01, epsilon * np.exp(-epsilon_step * e))
+
+        #epislon décroisant exponentielle
         epsilon =min_epsilon+ ((max_epsilon-min_epsilon)*np.exp(-epsilon_step*e))
         #epsilon = np.sin(np.pi*)
         
